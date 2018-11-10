@@ -36,10 +36,13 @@ public class Music {
     }
     
     public Music deleteAttr(String... keys) {
-        for(String key: keys) 
-            for(String req : REQUIRED_ATTRS)
-                if(!key.equals(req))
-                    attrs.remove(key);
+        boolean flag;
+        for(String key: keys) {
+            flag = false;
+            for(String req : REQUIRED_ATTRS) 
+                if(key.equals(req)) flag = true;
+            if(!flag) attrs.remove(key);  
+        }
         return this;
     }
     
