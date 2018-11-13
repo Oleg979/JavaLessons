@@ -11,7 +11,8 @@ public class MusicCollection {
     private Map<String, String> restrictions = new HashMap<>();
     
     public MusicCollection add(Music m) {
-        songs.add(m);
+        if(checkRestrictions(m))
+            songs.add(m);
         return this;
     }
     
@@ -34,5 +35,14 @@ public class MusicCollection {
     
     public void show() {
         songs.forEach(System.out::println);
+    }
+    
+    public MusicCollection addRestriction(String key, String val) {
+        restrictions.put(key, val);
+        return this;
+    }
+    
+    public boolean checkRestrictions(Music m) {
+        return restrictions.keySet().stream().noneMatch((key) -> (!m.getAttr(key).equals(restrictions.get(key))));
     }
 }
